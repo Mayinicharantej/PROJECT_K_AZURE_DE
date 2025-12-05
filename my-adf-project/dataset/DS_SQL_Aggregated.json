@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQL_Aggregated",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "AggregatedData"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

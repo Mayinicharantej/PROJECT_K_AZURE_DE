@@ -1,0 +1,19 @@
+{
+	"name": "Binary_trg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tickets_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "file_formate ",
+				"fileSystem": "differ"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

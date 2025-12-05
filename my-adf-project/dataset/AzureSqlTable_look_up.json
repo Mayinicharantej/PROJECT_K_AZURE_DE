@@ -1,0 +1,25 @@
+{
+	"name": "AzureSqlTable_look_up",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tbl_nam": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().tbl_nam",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

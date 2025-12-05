@@ -1,0 +1,39 @@
+{
+	"name": "PL_Exec_dbntbk",
+	"properties": {
+		"activities": [
+			{
+				"name": "Exec_Ntbk",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/c13082003@gmail.com/NTBK_VARSHITH-SAPRK_PRACTICE",
+					"baseParameters": {
+						" Raw_path": {
+							"value": "India",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "varshith"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-11-27T09:59:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

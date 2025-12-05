@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlTable_op_full_load",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "final_emp"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

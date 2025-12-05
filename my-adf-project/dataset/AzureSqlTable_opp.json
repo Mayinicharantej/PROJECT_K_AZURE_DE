@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlTable_opp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "jsonnn"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
