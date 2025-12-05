@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-ticket"
+		},
+		"ls_databricks_accessToken": {
+			"value": ""
+		},
+		"ls_on_prem_password": {
+			"value": ""
+		},
+		"ls_ticket_blob_connectionString": {
+			"value": ""
+		},
+		"ls_ticket_sqldb_password": {
+			"value": ""
+		},
+		"ls_tickets_gen2_accountKey": {
+			"value": ""
+		},
+		"ls_HttpServer_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"value": "1108-052058-wxj926xu"
+		},
+		"ls_on_prem_properties_typeProperties_host": {
+			"value": "C:\\adf_source"
+		},
+		"ls_on_prem_properties_typeProperties_userId": {
+			"value": "MAYINI CHARAN TEJ"
+		},
+		"ls_rest_api_properties_typeProperties_url": {
+			"value": "https://github.com"
+		},
+		"ls_ticket_sqldb_properties_typeProperties_server": {
+			"value": "sql-server-ticket.database.windows.net"
+		},
+		"ls_ticket_sqldb_properties_typeProperties_database": {
+			"value": "sql_db_tickets"
+		},
+		"ls_ticket_sqldb_properties_typeProperties_userName": {
+			"value": "charan"
+		},
+		"ls_tickets_gen2_properties_typeProperties_url": {
+			"value": "https://ticketsadlssa.dfs.core.windows.net/"
+		}
+	}
+}
