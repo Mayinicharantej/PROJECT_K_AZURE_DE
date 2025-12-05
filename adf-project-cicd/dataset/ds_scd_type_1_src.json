@@ -1,0 +1,41 @@
+{
+	"name": "ds_scd_type_1_src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_blob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "emp_data.csv",
+				"container": "employee"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "emp_id",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Salary",
+				"type": "String"
+			},
+			{
+				"name": "Location",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

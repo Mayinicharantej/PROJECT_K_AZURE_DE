@@ -1,0 +1,27 @@
+{
+	"name": "Binary_differ_files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_blob",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file_name_trg": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().file_name_trg",
+					"type": "Expression"
+				},
+				"container": "bronze"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

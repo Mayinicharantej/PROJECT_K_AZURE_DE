@@ -1,0 +1,142 @@
+{
+	"name": "cp_data_differ_formate",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get_Metadata_differ_files",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_getmeta_file",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Filter_csv_json_par",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get_Metadata_differ_files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get_Metadata_differ_files').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@or(\n    or(\n        endsWith(toLower(item().name), '.csv'),\n        endsWith(toLower(item().name), '.json')\n    ),\n    endsWith(toLower(item().name), '.parquet')\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach_differ_files",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Filter_csv_json_par",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Filter_csv_json_par').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy_data_differ_file",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": false,
+										"deleteFilesAfterCompletion": false
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Binary_differ_files",
+									"type": "DatasetReference",
+									"parameters": {
+										"file_name_trg": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Binary_trg_files",
+									"type": "DatasetReference",
+									"parameters": {
+										"file_name_src": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-12-05T05:48:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

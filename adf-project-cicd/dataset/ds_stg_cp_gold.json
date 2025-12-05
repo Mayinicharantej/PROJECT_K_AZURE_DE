@@ -1,0 +1,42 @@
+{
+	"name": "ds_stg_cp_gold",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OrderID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OrderDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ProductName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Quantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TotalAmount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "AggregatedData"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

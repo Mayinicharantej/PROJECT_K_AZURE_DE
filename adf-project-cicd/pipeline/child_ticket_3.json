@@ -1,0 +1,120 @@
+{
+	"name": "child_ticket_3",
+	"properties": {
+		"activities": [
+			{
+				"name": "cp_csv_sql_db",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText_ip",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable_opp",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Web_on_success",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "cp_csv_sql_db",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-63.eastus.logic.azure.com:443/workflows/f7518ec1e2074ef58dc1b62d0ffe5bc8/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=f7V3vdfy2EEbpS_ajoKEkNSY4qXuAARh2aeHd7axSH4",
+					"body": {
+						"value": "{\n    \"subject\": \"Pipeline Succeeded: @{pipeline().Pipeline}\",\n    \"body\": \"The pipeline @{pipeline().Pipeline} ran successfully. Run ID: @{pipeline().RunId}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Web_on_failedx",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "cp_csv_sql_db",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-63.eastus.logic.azure.com:443/workflows/f7518ec1e2074ef58dc1b62d0ffe5bc8/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=f7V3vdfy2EEbpS_ajoKEkNSY4qXuAARh2aeHd7axSH4",
+					"body": {
+						"value": "{\n    \"subject\": \"Pipeline FAILED: @{pipeline().Pipeline}\",\n    \"body\": \"The pipeline @{pipeline().Pipeline} FAILED. \\n\\nActivity: @{activity('cp_csv_sql_db').Error.ActivityName}\\n\\nError: @{activity('cp_csv_sql_db').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-12-05T05:48:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

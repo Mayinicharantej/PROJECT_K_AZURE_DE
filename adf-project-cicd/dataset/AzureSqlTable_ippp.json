@@ -1,0 +1,53 @@
+{
+	"name": "AzureSqlTable_ippp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "config_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "database_name",
+				"type": "varchar"
+			},
+			{
+				"name": "table_name",
+				"type": "varchar"
+			},
+			{
+				"name": "object_name",
+				"type": "varchar"
+			},
+			{
+				"name": "created_by",
+				"type": "varchar"
+			},
+			{
+				"name": "Is_Active",
+				"type": "varchar"
+			},
+			{
+				"name": "Load_Status",
+				"type": "varchar"
+			},
+			{
+				"name": "last_success_date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "master_config"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

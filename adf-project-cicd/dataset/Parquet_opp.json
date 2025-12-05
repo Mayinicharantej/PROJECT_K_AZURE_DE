@@ -1,0 +1,21 @@
+{
+	"name": "Parquet_opp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tickets_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "monitor",
+				"fileSystem": "rawwww"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,19 @@
+{
+	"name": "ds_Json_op",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tickets_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "rawwww"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

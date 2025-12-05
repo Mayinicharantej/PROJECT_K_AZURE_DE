@@ -1,0 +1,45 @@
+{
+	"name": "DS_SQL_Staging",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ticket_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ticket_14"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OrderID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OrderDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ProductName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Quantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TotalAmount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "RawData"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

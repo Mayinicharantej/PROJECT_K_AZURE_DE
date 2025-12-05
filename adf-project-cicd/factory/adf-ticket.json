@@ -1,0 +1,9 @@
+{
+	"name": "adf-ticket",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bb710739-e42e-4114-85ce-9475fbaf53fd",
+		"tenantId": "6da66cc1-ba00-42d4-9abf-a98c9a7ad9d0"
+	}
+}

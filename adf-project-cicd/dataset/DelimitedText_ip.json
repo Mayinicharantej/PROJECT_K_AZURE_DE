@@ -1,0 +1,37 @@
+{
+	"name": "DelimitedText_ip",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tickets_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "git.csv",
+				"fileSystem": "rawwww"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "p_rel_url",
+				"type": "String"
+			},
+			{
+				"name": "p_sink_folder",
+				"type": "String"
+			},
+			{
+				"name": "p_sink_file",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

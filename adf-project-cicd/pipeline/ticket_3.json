@@ -1,0 +1,112 @@
+{
+	"name": "ticket_3",
+	"properties": {
+		"activities": [
+			{
+				"name": "cp_json_adls_gen2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": false,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['p_rel_url']"
+								},
+								"sink": {
+									"name": "p_rel_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['p_sink_folder']"
+								},
+								"sink": {
+									"name": "p_sink_folder"
+								}
+							},
+							{
+								"source": {
+									"path": "$['p_sink_file']"
+								},
+								"sink": {
+									"name": "p_sink_file"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Json_ip",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText_op",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Execute_child_ticket_3",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "cp_json_adls_gen2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "child_ticket_3",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-12-05T05:48:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
